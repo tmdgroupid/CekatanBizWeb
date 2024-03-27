@@ -1,24 +1,32 @@
 CekatanBiz Website
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 CekatanBiz is Website tools Data Analyst,and Business Analyst
 
 Copyright by PT Media Pengembangan Teknologi Indonesia Jaya
+
+
 Developed by Ananda Rauf Maududi
+
+
 Developed Date: 27 Maret 2024
 
 How to Use:
-1.[Download Python](https://www.python.org/downloads/)
-2.Setting Environtment Variabel in path System and User: pathpython/python388/Scripts and pathpython/python388/Lib
-3.Install Library and Install Flask: PySpark: pip install pyspark Flask: pip install flask
-4.Run program: python app.py or flask run
+1.Extract file Rar CekatanBiz Web.rar
+2.[Download Python](https://www.python.org/downloads/)
+3.Setting Environtment Variabel in path System and User: pathpython/python388/Scripts and pathpython/python388/Lib
+4.Install Library Pyspark,Pandas,Matplotlib and Install Flask: PySpark: pip install pyspark Pandas: pip install pandas Matplotlib: pip install matplotlib
+Flask: pip install flask
+5.Run program: python app.py or flask run
+
 
 How to Contribute:
-1.[Download IDE Cursor SH](https://cursor.sh/)
-2.Open Project Folder
-3. Finish
+1.Extract file Rar CekatanBiz Web.rar
+2.[Download IDE Cursor SH](https://cursor.sh/)
+3.Open Project Folder
+4. Finish
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Have any problem?
 
