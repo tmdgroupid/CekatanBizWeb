@@ -1,7 +1,7 @@
 CekatanBiz Website
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-CekatanBiz is Website tools Data Analyst,Business Analyst and Business Intellgence
+CekatanBiz is Website tools Data Analyst,and Business Analyst
 
 Copyright by PT Media Pengembangan Teknologi Indonesia Jaya
 Developed by Ananda Rauf Maududi
