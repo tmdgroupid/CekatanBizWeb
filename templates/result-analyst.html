@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CekatanBiz is Website Tools Data Analyz and Business Analyst">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .chart-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .chart-container h3 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Result Analyst</h1>
+    <div class="chart-container">
+        <h2>File: {{ name }}</h2>
+        <div>
+            <h3>Pie Chart</h3>
+            <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
+        </div>
+        <div>
+            <h3>Bar Chart</h3>
+            <img src="data:image/png;base64,{{ bar_chart }}" alt="Bar Chart">
+        </div>
+    </div>
+</body>
+
+</html>
