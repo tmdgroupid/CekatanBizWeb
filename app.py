@@ -1,55 +1,43 @@
 from flask import Flask, render_template, request
 from pyspark.sql import SparkSession
-import pandas as pd
-import matplotlib.pyplot as plt
-import io
-import base64
+import os
 
 app = Flask(__name__)
 
-@app.route('/')
-def beranda():
-    return render_template('index.html', title='CekatanBiz - Upload File Dataset')
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
 
-@app.route('/uploadfile', methods=['GET', 'POST'])
+@app.route('/uploadfile', methods=['POST'])
 def uploadfile():
     if request.method == 'POST':
         file = request.files['file']
-        if file.filename.endswith('.csv'):
+        if file.filename == '':
+            return 'No selected file'
+        if file:
             filename = file.filename
             file.save(filename)
-            return render_template("result-analyst.html", title='CekatanBiz - Result Analyst', name=filename)
-        else:
-            return render_template("index.html", title='CekatanBiz - Upload File Dataset', error="File must be in CSV format.")
-    
-    return render_template("index.html", title='CekatanBiz - Upload File Dataset')
 
-@app.route('/analyst/<filename>')
-def analyst(filename):
-    spark = SparkSession.builder.appName('Data Analyst').getOrCreate()
-    df = spark.read.csv(filename, header=True, inferSchema=True)
-    
-    # Analisis data menggunakan PySpark
-    pie_data = df.groupBy('category').count().toPandas()
-    bar_data = df.groupBy('category').sum('value').toPandas()
+            # Inisialisasi Spark Session
+            spark = SparkSession.builder \
+                .appName('Tools Data Analyst and Business Analyst') \
+                .getOrCreate()
 
-    # Menggambar chart pie
-    pie_data.plot.pie(y='count', labels=pie_data['category'], autopct='%1.1f%%', legend=False)
-    plt.title('Pie Chart')
-    pie_chart = io.BytesIO()
-    plt.savefig(pie_chart, format='png')
-    pie_chart = base64.b64encode(pie_chart.getvalue()).decode('utf-8')
-    plt.close()
+            # Load file CSV menjadi DataFrame Spark
+            df = spark.read.option('header', 'true').csv(filename)
 
-    # Menggambar chart bar
-    bar_data.plot.bar(x='category', y='sum(value)', legend=False)
-    plt.title('Bar Chart')
-    bar_chart = io.BytesIO()
-    plt.savefig(bar_chart, format='png')
-    bar_chart = base64.b64encode(bar_chart.getvalue()).decode('utf-8')
-    plt.close()
+            # Menghitung jumlah data kategorikal untuk chart Pie
+            pie_data = df.groupBy('Category').count().collect()
+            pie_data = [(row['Category'], row['count']) for row in pie_data]
 
-    return render_template("result-analyst.html", title='CekatanBiz - Analyst', filename=filename, pie_chart=pie_chart, bar_chart=bar_chart)
+            # Menghitung jumlah data numerikal untuk chart Bar
+            bar_data = df.groupBy('Category').agg({'Value': 'sum'}).collect()
+            bar_data = [(row['Category'], row['sum(Value)']) for row in bar_data]
+
+            # Menghapus file CSV yang diunggah
+            os.remove(filename)
+
+            return render_template('index.html', pie_data=pie_data, bar_data=bar_data)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(debug=True)
