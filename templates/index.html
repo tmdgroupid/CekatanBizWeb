@@ -19,6 +19,14 @@
             background-color: #f8f8f8;
         }
 
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
         h1 {
             text-align: center;
             margin-bottom: 20px;
@@ -49,15 +57,23 @@
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        #file-name {
+            font-size: 14px;
+            color: #333;
+        }
     </style>
 </head>
 
 <body>
-    <h1>File Dataset Upload</h1>
-    <form action="/uploadfile" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".csv">
-        <input type="submit" value="Upload">
-    </form>
+    <div class="container">
+        <h1>File Dataset Upload</h1>
+        <form action="/uploadfile" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".csv" onchange="document.getElementById('file-name').innerHTML = this.files[0].name;">
+            <input type="submit" value="Upload">
+        </form>
+        <span id="file-name"></span>
+    </div>
 </body>
 
 </html>
