@@ -1,79 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CekatanBiz is Website Tools Data Analyz and Business Analyst">
-    <title>{{ title }}</title>
+    <title>CekatanBiz Data Analysis Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f8f8;
+            background-color: #f0f0f0;
         }
-
-        .container {
-            max-width: 400px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
         h1 {
             text-align: center;
-            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin-bottom: 0;
         }
-
         form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: 20px auto;
+            width: 50%;
+            text-align: center;
         }
-
         input[type="file"] {
-            margin-bottom: 10px;
             padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            margin-right: 10px;
         }
-
-        input[type="submit"] {
+        button[type="submit"] {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #333;
             color: #fff;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
         }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        #file-name {
-            font-size: 14px;
-            color: #333;
+        h2 {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin: 20px 0;
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <h1>File Dataset Upload</h1>
-        <form action="/uploadfile" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" accept=".csv" onchange="document.getElementById('file-name').innerHTML = this.files[0].name;">
-            <input type="submit" value="Upload">
+        <h1>Data Analysis Dashboard</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".csv" required>
+            <button type="submit">Upload File</button>
         </form>
-        <span id="file-name"></span>
+        {% if df is not none %}
+            <h2>Data Preview</h2>
+            <table>
+                <thead>
+                    <tr>
+                        {% for col in df.columns %}
+                            <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index, row in df.iterrows() %}
+                        <tr>
+                            {% for value in row %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+    <div class="container">
+        <h1>Data Analysis Chart Dashboard</h1>
+        {% if pie_chart %}
+            <h2>Pie Chart</h2>
+            <div id="pie-chart" style="height: 500px; width: 100%;"></div>
+            <script>
+                var pie_chart = document.getElementById('pie-chart');
+                Plotly.newPlot(pie_chart, {{ pie_chart_data | safe }}, {{ pie_chart_layout | safe }});
+            </script>
+        {% endif %}
+        {% if bar_chart %}
+            <h3>Bar Chart</h3>
+            <div id="bar-chart" style="height: 500px; width: 100%;"></div>
+            <script>
+                var bar_chart = document.getElementById('bar-chart');
+                Plotly.newPlot(bar_chart, {{ bar_chart_data | safe }}, {{ bar_chart_layout | safe }});
+            </script>
+        {% endif %}
     </div>
 </body>
-
 </html>
