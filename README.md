@@ -10,9 +10,8 @@ CekatanBiz is Website tools Data Analyst, and Business Analyst.
 1. Extract file Rar CekatanBiz Web.rar
 2. [Download Python](https://www.python.org/downloads/)
 3. Setting Environtment Variabel in path System and User: pathpython/python388/Scripts and pathpython/python388/Lib
-4. Install Library Pyspark,Pandas,Matplotlib and Install Flask: PySpark: pip install pyspark Pandas: pip install pandas Matplotlib: pip install matplotlib
-Flask: pip install flask
-5. Run program: python app.py or flask run
+5. Install Library: pip3 install -r requirements.txt
+6. Run program: python app.py or flask run
 
 
 ## How to Contribute:
