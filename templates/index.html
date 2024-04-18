@@ -48,10 +48,24 @@
 <body>
     <div class="container">
         <h1>Data Analysis Dashboard</h1>
-        <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" accept=".csv" required>
+        <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm();">
+            <input type="file" name="files" accept=".csv" multiple required>
             <button type="submit">Upload File</button>
+            <p>Total Upload File Today: {{ upload_count_today }}</p>
+            <p>Max Upload File: 2</p>
         </form>
+        
+        <script>
+            function validateForm() {
+                var input = document.querySelector('input[type="file"]');
+                if (input.files.length > 2) {
+                    window.location.href = 'register_page';
+                    return false;
+                }
+                return true;
+            }
+        </script>
+        
         {% if df is not none %}
             <h2>Data Preview</h2>
             <table>
